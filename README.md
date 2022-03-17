@@ -3,3 +3,13 @@
 Code used for analyses in Moreira et al. 2022:
 
 ### Read alignment, variant calling, and filtering
+
+### Genotype-environment association analysis
+
+### Signatures of selective sweep
+
+### Population structure outliers
+
+### FST-outlier analysis
+
+### Gene ontology enrichment
