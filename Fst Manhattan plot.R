@@ -1,4 +1,4 @@
-## Made by Lucas R. Moreira
+## Written by Lucas R. Moreira
 ## Last updated 28 March 2020
 ## Usage: takes output from ANGSD fst windows analysis and produce outlier plots
 
