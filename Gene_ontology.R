@@ -1,0 +1,77 @@
+# Read Ontologies
+
+go <- read.delim("C:\\Users\\lexlu\\OneDrive\\Biology\\AMNH\\Projects\\Woodpeckers project\\Chapter 3\\PANNZER2\\PANNZER2 Gene Ontology\\GO.out.txt",sep="\t",header=TRUE)
+
+
+# Genes from Fst outlier in Downy
+
+candidates <- read.csv("C:\\Users\\lexlu\\OneDrive\\Biology\\AMNH\\Projects\\Woodpeckers project\\Chapter 3\\Fst-outlier (ANGSD)\\Picoides pubescens\\Corrected SFS - v2\\Gene_id_all_outliers.csv")
+
+
+total_number_of_genes_in_genome <- length(unique(go$qpid))
+total_number_of_candidates <- length(candidates$x)
+total_genes <- cbind(total_number_of_candidates,total_number_of_genes_in_genome)
+
+CC <- numeric()
+MF <- numeric()
+BP <- numeric()
+for(i in 1:length(candidates$x)){
+  candidate <- candidates[i,]
+  print(candidate)
+  go_set <- go[grep(candidate,go$qpid),]
+  #go_set
+  go_CC <- go_set[grep("CC",go_set$ontology),]
+  CC <- rbind(CC,go_CC)
+  go_MF <- go_set[grep("MF",go_set$ontology),]
+  MF <- rbind(MF,go_MF)
+  go_BP <- go_set[grep("BP",go_set$ontology),]
+  BP <- rbind(BP,go_BP)
+}
+write.csv(CC,"GO.CC.csv",row.names = F)
+write.csv(MF,"GO.MF.csv",row.names = F)
+write.csv(BP,"GO.BP.csv",row.names = F)
+
+
+###################################
+# Enrichment analysis (MANUALLY)  #
+###################################
+
+# BIOLOGICAL PROCESS
+
+# Count how many genes in the candidate set have each GO id
+candidates_goid <- as.factor(sprintf("%07d", BP$goid))
+t.candidates_goid <- table(candidates_goid)
+
+# Count how many genes in the entire annotation have each GO id
+go.genome <- go[grep("BP",go$ontology),]
+genome_goid <- as.factor(sprintf("%07d", go.genome$goid))
+matches <- droplevels(genome_goid[is.element(genome_goid, candidates_goid)])
+t.genome_goid <- table(matches)
+
+# Produce a contingency table
+contingency <- cbind(candidate_set=t.candidates_goid,genome=(t.genome_goid-t.candidates_goid))
+
+######################
+# Fisher exact test  #
+######################
+
+fisher_test <- numeric()
+for(i in 1:nrow(contingency)){
+  target <- contingency[i,]
+  not.target <- total_genes-target
+  contingency.table <- rbind(target=target,others=not.target)
+  result <- fisher.test(contingency.table)
+  estimate <- unname(result$estimate)
+  p <- result$p.value
+  go_id <- paste0("GO:",rownames(contingency)[i])
+  row.info <- cbind("GO_ID"=go_id,"candidate_count"=unname(target[1]),"genome_count"=unname(target[1]+target[2]),"odds.ratio"=estimate,"p.value"=p)
+  fisher_test <- rbind(fisher_test,row.info)
+}
+
+corrected.p <- p.adjust(fisher_test[,5], method = "fdr")
+fisher_test <- as.data.frame(cbind(fisher_test,corrected.p))
+write.csv(fisher_test,"BP-fisher_test.enrichment.csv",row.names = F)
+
+enrichment <- fisher_test[which(as.numeric(fisher_test$corrected.p)<0.05),]
+
+write.csv(enrichment,"BP-enrichment.csv",row.names = F)
