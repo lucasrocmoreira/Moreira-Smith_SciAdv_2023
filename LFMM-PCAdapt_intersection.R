@@ -1,5 +1,5 @@
 ########################################
-# Claculate number of orthologous SNPs #
+# Calculate number of orthologous SNPs #
 ########################################
 
 PCAdapt <- readRDS("Outliers.RDS")
