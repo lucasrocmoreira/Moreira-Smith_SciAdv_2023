@@ -1,4 +1,4 @@
-## Made by Lucas R. Moreira
+## Writen by Lucas R. Moreira
 ## Last updated 28 March 2020
 ## Usage: Calculates genotype-environemnt association
 
