@@ -1,4 +1,4 @@
-# Code from: Paralle genomic signatures of local adaptation across a continental-scale environmental gradient
+# Code from: Parallel genomic signatures of local adaptation across a continental-scale environmental gradient
 
 Code used for analyses in Moreira et al. 2022:
 
