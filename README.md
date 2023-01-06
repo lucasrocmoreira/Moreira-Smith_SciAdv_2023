@@ -1,6 +1,6 @@
 # Code from: Parallel genomic signatures of local adaptation across a continental-scale environmental gradient
 
-Code used for analyses in Moreira & Smith 2022:
+Code used for analyses in Moreira & Smith 2023:
 
 ### Read alignment, variant calling, and filtering
 
