@@ -8,7 +8,7 @@ Code used for analyses in Moreira & Smith 2022:
 
 ### Genotype-environment association analysis
 
-* `ANGSD-ass.sh`: runs [ANGSD-asso](http://www.popgen.dk/angsd/index.php/Association).
+* `ANGSD-asso.sh`: runs [ANGSD-asso](http://www.popgen.dk/angsd/index.php/Association).
 
 * `LRT_permutation_array.sh`: estimates a per site null distribution of LRT values under random permutation and finds 99.99th percentile threshold of significance.
 
