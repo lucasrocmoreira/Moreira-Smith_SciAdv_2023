@@ -18,7 +18,7 @@ Code used for analyses in Moreira & Smith 2022:
 
 * `ANGSD-asso_intersection.R`: finds a set of (parallel) SNP windows intersecting two sets of candidate SNP windows and estimates probability of sharing.
 
-* `Methods_intersection.R`: finds a set of SNP windows intersecting across three different methods.
+* `Method_intersection.R`: finds a set of SNP windows intersecting across three different methods.
 
 * `Gene_length_enrichment.R`: tests for enrichment of large genes in the parallel gene set.
 
