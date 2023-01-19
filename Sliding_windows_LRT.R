@@ -1,5 +1,5 @@
 ## Writen by Lucas R. Moreira
-## Usage: Calculates median values of LRT across sliding windows of 50 SNPs, whit 10 SNPs increments
+## Usage: Calculates median values of LRT across sliding windows of 50 SNPs, whith 10 SNPs increments
 
 library(data.table)
 library(windowscanr)
